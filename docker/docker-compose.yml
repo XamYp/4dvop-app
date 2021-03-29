@@ -1,11 +1,11 @@
 version: '3'
 services:
   nginx:
-    image: nginx-4dvop
+    image: xamyp/4dvop-app:nginx
     ports:
       - "8080:8080"
   haproxy:
-    image: haproxy-4dvop
+    image: xamyp/4dvop-app:haproxy
     ports:
       - "80:80"
     depends_on:
