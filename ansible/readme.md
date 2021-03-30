@@ -1,6 +1,6 @@
 Télécharger le module firewalld sur ansible depuis votre terminal :
 ```console 
-ansible-galaxy collection install ansible.posix.firewalld
+ansible-galaxy collection install ansible.posix
 ```
 
 Lancer la commande ci-dessous :
