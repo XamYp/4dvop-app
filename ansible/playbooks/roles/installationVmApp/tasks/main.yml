@@ -1,0 +1,63 @@
+---
+- name: "Ajout du repository"
+  yum:
+    name: epel-release
+    state: present
+
+- name: "Installation de nginx, git et haproxy"
+  yum:
+   state: present
+   name:
+     - nginx
+     - git
+     - haproxy
+
+- name: "Suppression du site par défaut"
+  file:
+   path: /usr/share/nginx/html/
+   state: absent
+
+- name: "Git clone vers le fichier nginx"
+  ansible.builtin.git:
+    repo: 'https://github.com/diranetafen/static-website-example.git'
+    dest: /usr/share/nginx/html/
+
+- name: "Ouverture du port 80 et du port 443"
+  ansible.posix.firewalld:
+    zone: public
+    port: 80-443/tcp
+    permanent: yes
+    state: enabled
+
+- name: "Rédémarrage de firewalld"
+  systemd:
+    name: firewalld
+    state: reloaded
+
+- name: "Remplacement du port 80 par le 8080"
+  shell: sed -i 's/80 default_server/8080 default_server/g' /etc/nginx/nginx.conf
+
+- name: "Démarrage du service nginx"
+  service:
+   name: nginx
+   state: started
+
+- name: "Enable du service haproxy"
+  service:
+   name: haproxy
+   enabled: yes
+
+- name: "Démarrage du service haproxy"
+  service:
+   name: haproxy
+   state: started
+
+- name: "Déploiement du haproxy.cfg"
+  copy:
+    src: files/haproxy.cfg
+    dest: /etc/haproxy/haproxy.cfg
+
+- name: "Rechargement du service haproxy"
+  service:
+   name: haproxy 
+   state: reloaded

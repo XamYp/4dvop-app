@@ -1,0 +1,15 @@
+---
+- name: "Début de l'installation"
+  hosts: all
+  become: true
+
+  pre_tasks:
+    - debug:
+        msg: 'Démarrage'
+
+  roles:
+    - installationVmApp 
+
+  post_tasks:
+    - debug:
+        msg: 'Fin'

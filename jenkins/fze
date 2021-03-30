@@ -1,0 +1,14 @@
+#!/bin/bash
+
+sudo yum -y update && yum -y install nginx git net-tools
+sudo rm -Rf /usr/share/nginx/html/*
+sudo git clone https://github.com/diranetafen/static-website-example.git /usr/share/nginx/html/
+sudo sed -i 's/80 default_server/8080 default_server/g' /etc/nginx/nginx.conf
+sudo systemctl restart nginx
+sudo systemctl enable nginx
+
+sudo yum -y install haproxy
+sudo mv haproxy.cfg /etc/haproxy/haproxy.cfg
+sudo systemctl restart haproxy
+sudo systemctl enable haproxy
+
