@@ -1,3 +1,8 @@
+Télécharger le module firewalld sur ansible depuis votre terminal :
+```console 
+ansible-galaxy collection install ansible.posix.firewalld
+```
+
 Lancer la commande ci-dessous :
 ```console
 ansible-playbook --user max --become -k -K -i inventories/server.ini playbooks/deploiementInstallation.yml 
