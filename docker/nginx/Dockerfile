@@ -1,6 +1,5 @@
-FROM ubuntu:18.04
-RUN apt-get update
-RUN apt-get install -y nginx git
+FROM ubuntu:20.04
+RUN apt-get update && apt-get install -y nginx git
 RUN rm -rf /var/www/html/*
 RUN git clone https://github.com/diranetafen/static-website-example.git /var/www/html/
 RUN sed -i 's/80 default_server/8080 default_server/g' /etc/nginx/sites-enabled/default
